@@ -153,6 +153,10 @@
   left: 538px;
 }
 
+.disk {
+  z-index: -3;
+}
+
 .winner__color {
   position: absolute;
   width: 100%;
@@ -193,4 +197,9 @@
   position: absolute;
   top: 45%;
   left: 30%;
+}
+
+.test-disk-container {
+  position: absolute;
+  z-index: -1;
 }
