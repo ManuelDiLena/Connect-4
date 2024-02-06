@@ -21,7 +21,8 @@ const Game = () => {
           player1Wins,
           player2Wins,
           setWhoWins,
-          playAgain, } = usePlay();
+          playAgain,
+          wait } = usePlay();
 
   return (
     <div className='container game_container'>
@@ -55,6 +56,8 @@ const Game = () => {
             grid={grid}
             setNewDisk={setNewDisk}
             winner={winner}
+            wait={wait}
+            player={player}
           />
         </div>
 
@@ -75,7 +78,7 @@ const Game = () => {
           />
         }
         {
-          winner
+          winner && !wait
           &&
           <Winner 
             winner={winner}

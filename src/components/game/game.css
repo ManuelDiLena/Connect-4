@@ -31,11 +31,21 @@
 .menu__button {
   width: 100px;
   background-color: var(--color-bg-variant);
+  transition: all 0.3s;
+}
+
+.menu__button:hover {
+  background-color: var(--color-pink);
 }
 
 .restart__button {
   width: 115px;
   background-color: var(--color-bg-variant);
+  transition: all 0.3s;
+}
+
+.restart__button:hover {
+  background-color: var(--color-pink);
 }
 
 .menu__container .main__logo {
@@ -51,7 +61,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 45px 0 105px 0;
+  margin: 76px 0 136px 0;
 }
 
 .player__card {
@@ -172,6 +182,11 @@
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.winner button:hover {
+  background-color: var(--color-pink);
+  cursor: pointer;
 }
 
 .winner h3 {

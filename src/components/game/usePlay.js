@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+let col;
+let row;
+let canChange = false;
 
 const usePlay = () => {
-
-  let colNum;
-  let rowNum;
-
   const initialGrid = [ [0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0],
@@ -18,15 +18,16 @@ const usePlay = () => {
   const [winner, setWinner] = useState(null);
   const [player1Wins, setPlayer1Wins] = useState(0);
   const [player2Wins, setPlayer2Wins] = useState(0);
+  const [wait, setWait] = useState(false);
 
-  const setNewDisk = (col) => {
-    colNum = null
-    rowNum = null
+  const setNewDisk = (column) => {
+    col = null
+    row = null
 
     for (let index in grid) {
-      if (grid[index][col] === 0) {
-        colNum = col
-        rowNum = index
+      if (grid[index][column] === 0) {
+        col = column
+        row = index
       } 
       else { break }
     }
@@ -35,16 +36,38 @@ const usePlay = () => {
   }
 
   const updateGrid = () => {
-    if (rowNum != null && colNum != null) {
-      grid[rowNum][colNum] = player
-      setGrid(grid)
-      changePlayer()
+    if (row != null && col != null) {
+      grid[row][col] = player
+      setGrid([...grid])
+      canChange = true
+      //changePlayer()
     }
   }
 
   const changePlayer = () => {
     (player === 1) ? setPlayer(2) : setPlayer(1)
     setTimerCounter(30)
+  }
+
+  const checkWin = () => {
+    row = Number(row)
+    col = Number(col)
+
+    // Vertically
+    row-3 >= 0 && (grid[row-1][col] === player) && (grid[row-2][col] === player) && (grid[row-3][col] === player) && setWhoWins(player)
+    row+3 <=5 && (grid[row+1][col] === player) && (grid[row+2][col] === player) && (grid[row+3][col] === player) && setWhoWins(player)
+
+    //Horizontally
+    col-3 >= 0 && (grid[row][col-1] === player) && (grid[row][col-2] === player) && (grid[row][col-3] === player) && setWhoWins(player)
+    col+3 <= 6 && (grid[row][col+1] === player) && (grid[row][col+2] === player) && (grid[row][col+3] === player) && setWhoWins(player)
+
+    //Diagonally up
+    row-3 >= 0 && col-3 >= 0 && (grid[row-1][col-1] === player) && (grid[row-2][col-2] === player) && (grid[row-3][col-3] === player) && setWhoWins(player)
+    row-3 >= 0 && col+3 <= 6 && (grid[row-1][col+1] === player) && (grid[row-2][col+2] === player) && (grid[row-3][col+3] === player) && setWhoWins(player)
+
+    //Diagonally down
+    row+3 <= 5 && col-3 >= 0 && (grid[row+1][col-1] === player) && (grid[row+2][col-2] === player) && (grid[row+3][col-3] === player) && setWhoWins(player)
+    row+3 <= 5 && col+3 <= 6 && (grid[row+1][col+1] === player) && (grid[row+2][col+2] === player) && (grid[row+3][col+3] === player) && setWhoWins(player)
   }
 
   const addWinner = (playerNum) => {
@@ -59,6 +82,8 @@ const usePlay = () => {
   const setWhoWins = (playerNum) => {
     setWinner(playerNum)
     addWinner(playerNum)
+    setTimerCounter(0)
+    canChange = false
   }
 
   const playAgain = (restart) => {
@@ -71,9 +96,21 @@ const usePlay = () => {
       changePlayer()
     }
 
+    canChange = false
     setWinner(null)
     setGrid(initialGrid)
   }
+
+  useEffect(() => {
+    setWait(true)
+    const timer = setTimeout(() => {
+      setWait(false)
+      checkWin()
+      canChange && changePlayer()
+    }, 600)
+
+    return () => clearTimeout(timer)
+  }, [grid])
 
   return {
     grid,
@@ -85,7 +122,8 @@ const usePlay = () => {
     setWhoWins,
     player1Wins,
     player2Wins,
-    playAgain
+    playAgain,
+    wait
   }
 }
 
