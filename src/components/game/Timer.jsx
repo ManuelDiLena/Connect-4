@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import TIMER1 from '../../assets/timer-1.svg';
 import TIMER2 from '../../assets/timer-2.svg';
 
-const Timer = ({ player, timerCounter, setTimerCounter }) => {
-
+const Timer = ({ player, timerCounter, setTimerCounter, setWhoWins }) => {
   useEffect(() => {
     const timer = timerCounter > 0 && setInterval(() => setTimerCounter(timerCounter - 1), 1000)
+
+    timerCounter === 0 && player === 1 && setWhoWins(2)
+    timerCounter === 0 && player === 2 && setWhoWins(1)
 
     return () => clearInterval(timer)
   }, [timerCounter])
@@ -22,13 +24,13 @@ const Timer = ({ player, timerCounter, setTimerCounter }) => {
           ? { backgroundImage: `url(${TIMER1})` } 
           : { backgroundImage: `url(${TIMER2})` }}
       >
-        <h2>
+        <h3>
           {
             (player === 1)
             ? `PLAYER 1'S TURN`
             : `PLAYER 2'S TURN`
           }
-        </h2>
+        </h3>
         <p>{`${timerCounter}s`}</p>
       </div>
     </div>

@@ -18,22 +18,24 @@
 }
 
 .game__button {
-  padding: 13px 25px;
+  padding: 10px 22px;
   font-size: 1.5rem;
   font-size: 600;
   border-radius: 40px;
   color: var(--color-light);
   text-align: center;
-  background-color: var(--color-bg-variant);
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 .menu__button {
   width: 100px;
+  background-color: var(--color-bg-variant);
 }
 
 .restart__button {
   width: 115px;
+  background-color: var(--color-bg-variant);
 }
 
 .menu__container .main__logo {
@@ -92,11 +94,11 @@
 .black-board {
   position: absolute;
   left: 0;
-  top: 0.5px;
+  top: 0.4px;
   z-index: -1;
 }
 
-.winner__color {
+.winner-color {
   position: absolute;
   width: 100%;
   height: calc(50% - 245px);
@@ -106,11 +108,19 @@
   background-color: var(--color-bg-variant);
 }
 
+.winner-pink {
+  background-color: var(--color-pink);
+}
+
+.winner-yellow {
+  background-color: var(--color-yellow);
+}
+
 .timer__container {
   position: absolute;
   width: 200px;
-  height: 151px;
-  bottom: calc(50% - 398px);
+  height: 165px;
+  bottom: calc(50% - 410px);
   left: calc(50% - 100px);
   color: var(--color-light);
 }
@@ -123,12 +133,12 @@
   width: 100%;
   height: 100%;
   position: relative;
-  background-size: contain;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.timer h2 {
+.timer h3 {
   position: absolute;
   width: 100%;
   top: 30%;
@@ -144,5 +154,48 @@
   font-size: 5.5rem;
   font-weight: 600;
   text-align: center;
+}
+
+.winner__container {
+  position: absolute;
+  width: 290px;
+  height: 180px;
+  bottom: calc(50%);
+  left: calc(50% - 145px);
+  color: var(--color-dark);
+}
+
+.winner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.winner h3 {
+  position: absolute;
+  width: 100%;
+  top: 15%;
+  left: 0;
+  text-align: center;
+}
+
+.winner p {
+  position: absolute;
+  width: 100%;
+  top: 25%;
+  left: 0;
+  font-size: 5.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.winner button {
+  position: absolute;
+  top: 60%;
+  left: calc(50% - 67px);
+  background-color: var(--color-bg-variant);
 }
 

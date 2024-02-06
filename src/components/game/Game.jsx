@@ -6,26 +6,46 @@ import PLAYER2 from '../../assets/player-2.png';
 import { ReactComponent as BlackBoard } from '../../assets/board-black.svg';
 import { ReactComponent as WhiteBoard } from '../../assets/board-white.svg';
 import { Grid } from './Grid';
-import { usePlay } from './game';
+import { usePlay } from './usePlay';
 import { Timer } from './Timer';
+import { Winner } from './Winner';
 
 const Game = () => {
 
-  const { grid, column, row, player, play, timerCounter, setTimerCounter, updateGrid, changePlayer, setNewDisk } = usePlay();
+  const { grid,
+          setNewDisk,
+          player,
+          timerCounter,
+          setTimerCounter,
+          winner,
+          player1Wins,
+          player2Wins,
+          setWhoWins,
+          playAgain, } = usePlay();
 
   return (
     <div className='container game_container'>
       <div className='menu__container'>
-        <Link className='game__button menu__button'>MENU</Link>
+        <Link 
+          to='/' 
+          className='game__button menu__button'
+        >
+          MENU
+        </Link>
         <img src={LOGO} alt='logo' className='main__logo' />
-        <button className='game__button restart__button'>RESTART</button>
+        <button 
+          className='game__button restart__button'
+          onClick={() => playAgain(true)}
+        >
+          RESTART
+        </button>
       </div>
 
       <div className='game__container'>
         <article className='player__card player-1-card'>
           <img src={PLAYER1} alt="player1" />
           <h2>PLAYER 1</h2>
-          <p>0</p>
+          <p>{player1Wins}</p>
         </article>
 
         <div className='game__board'>
@@ -33,30 +53,42 @@ const Game = () => {
           <BlackBoard className='black-board' />
           <Grid 
             grid={grid}
-            column={column}
-            row={row}
-            play={play}
-            updateGrid={updateGrid}
-            changePlayer={changePlayer}
             setNewDisk={setNewDisk}
+            winner={winner}
           />
         </div>
 
         <article className='player__card player-2-card'>
           <img src={PLAYER2} alt="player1" />
           <h2>PLAYER 2</h2>
-          <p>0</p>
+          <p>{player2Wins}</p>
         </article>
 
-        <Timer 
-          timerCounter={timerCounter}
-          player={player}
-          setTimerCounter={setTimerCounter}
-        />
-        
+        {
+          !winner 
+          &&
+          <Timer 
+            timerCounter={timerCounter}
+            player={player}
+            setTimerCounter={setTimerCounter}
+            setWhoWins={setWhoWins}
+          />
+        }
+        {
+          winner
+          &&
+          <Winner 
+            winner={winner}
+            playAgain={playAgain}
+          />
+        }
       </div>
 
-      <div className='winner__color'></div>
+      <div 
+        className={ (winner === 1) 
+                    ? 'winner-color winner-red'
+                    : ((winner === 2) ? 'winner-color winner-yellow' : 'winner-color') }
+      ></div>
 
     </div>
   )
