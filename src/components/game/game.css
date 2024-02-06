@@ -1,10 +1,9 @@
 .game_container {
   position: relative;
-  height: 100vh;
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
 }
 
 .menu__container {
@@ -100,7 +99,7 @@
 .winner__color {
   position: absolute;
   width: 100%;
-  height: calc(50vh - 245px);
+  height: calc(50% - 245px);
   bottom: 0;
   z-index: -2;
   border-radius: 60px 60px 0 0;
@@ -110,8 +109,8 @@
 .timer__container {
   position: absolute;
   width: 200px;
-  height: 200px;
-  bottom: -140px;
+  height: 151px;
+  bottom: calc(50% - 398px);
   left: calc(50% - 100px);
   color: var(--color-light);
 }
@@ -131,15 +130,19 @@
 
 .timer h2 {
   position: absolute;
+  width: 100%;
   top: 30%;
-  left: 30px;
+  left: 0;
+  text-align: center;
 }
 
 .timer p {
+  position: absolute;
+  width: 100%;
+  top: 45%;
+  left: 0;
   font-size: 5.5rem;
   font-weight: 600;
-  position: absolute;
-  top: 45%;
-  left: 30%;
+  text-align: center;
 }
 

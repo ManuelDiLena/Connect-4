@@ -13,13 +13,13 @@ const usePlay = () => {
 
   const [column, setColumn] = useState(null);
   const [row, setRow] = useState(null);
-  const [play, setPlay] = useState(null);
+  const [play, setPlay] = useState(1);
   const [player, setPlayer] = useState(1);
+  const [timerCounter, setTimerCounter] = useState(30);
 
   const changePlayer = () => {
-    if (rowNum != null && colNum != null) {
-      (player === 1) ? setPlayer(2) : setPlayer(1)
-    }
+    (player === 1) ? setPlayer(2) : setPlayer(1)
+    setTimerCounter(30)
   }
 
   const setNewDisk = (col) => {
@@ -55,6 +55,8 @@ const usePlay = () => {
     setNewDisk,
     updateGrid,
     changePlayer,
+    timerCounter,
+    setTimerCounter
   }
 }
 
