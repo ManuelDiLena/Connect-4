@@ -3,8 +3,8 @@ import './game.css';
 import LOGO from '../../assets/main-logo.png';
 import PLAYER1 from '../../assets/player-1.png';
 import PLAYER2 from '../../assets/player-2.png';
-import { ReactComponent as BlackBoard } from '../../assets/board-black.svg';
-import { ReactComponent as WhiteBoard } from '../../assets/board-white.svg';
+import BLACKBOARD from '../../assets/board-black.svg';
+import WHITEBOARD from '../../assets/board-white.svg';
 import { usePlay } from './usePlay';
 import { Grid } from '../grid/Grid';
 import { Timer } from '../timer/Timer';
@@ -12,7 +12,7 @@ import { Winner } from '../winner/Winner';
 import { Modal } from '../modal/Modal';
 
 const Game = () => {
-
+  const width = window.innerWidth
   const { grid,
           setNewDisk,
           player,
@@ -29,7 +29,7 @@ const Game = () => {
           setPause } = usePlay();
 
   return (
-    <div className='container game_container'>
+    <div className='container game-container'>
       <div className='menu__container'>
         <button 
           className='game__button menu__button'
@@ -54,8 +54,14 @@ const Game = () => {
         </article>
 
         <div className='game__board'>
-          <WhiteBoard className='white-board' />
-          <BlackBoard className='black-board' />
+          <div 
+            className='white-board' 
+            style={{ backgroundImage: `url(${WHITEBOARD})` }}
+          ></div>
+          <div 
+            className='black-board' 
+            style={{ backgroundImage: `url(${BLACKBOARD})` }}
+          ></div>
           <Grid 
             grid={grid}
             setNewDisk={setNewDisk}
@@ -63,6 +69,7 @@ const Game = () => {
             wait={wait}
             player={player}
             winnerPos={winnerPos}
+            width={width}
           />
         </div>
 
