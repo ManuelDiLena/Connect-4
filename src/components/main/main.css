@@ -40,7 +40,7 @@
 }
 
 .main__button:hover {
-  opacity: 0.5;
+  transform: scale(1.05);
 }
 
 .button__pink {

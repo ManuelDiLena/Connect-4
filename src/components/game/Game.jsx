@@ -5,10 +5,11 @@ import PLAYER1 from '../../assets/player-1.png';
 import PLAYER2 from '../../assets/player-2.png';
 import { ReactComponent as BlackBoard } from '../../assets/board-black.svg';
 import { ReactComponent as WhiteBoard } from '../../assets/board-white.svg';
-import { Grid } from './Grid';
 import { usePlay } from './usePlay';
-import { Timer } from './Timer';
-import { Winner } from './Winner';
+import { Grid } from '../grid/Grid';
+import { Timer } from '../timer/Timer';
+import { Winner } from '../winner/Winner';
+import { Modal } from '../modal/Modal';
 
 const Game = () => {
 
@@ -23,17 +24,19 @@ const Game = () => {
           setWhoWins,
           playAgain,
           wait,
-          winnerPos } = usePlay();
+          winnerPos,
+          pause,
+          setPause } = usePlay();
 
   return (
     <div className='container game_container'>
       <div className='menu__container'>
-        <Link 
-          to='/' 
+        <button 
           className='game__button menu__button'
+          onClick={() => setPause(true)}
         >
           MENU
-        </Link>
+        </button>
         <img src={LOGO} alt='logo' className='main__logo' />
         <button 
           className='game__button restart__button'
@@ -77,6 +80,7 @@ const Game = () => {
             player={player}
             setTimerCounter={setTimerCounter}
             setWhoWins={setWhoWins}
+            pause={pause}
           />
         }
         {
@@ -94,6 +98,33 @@ const Game = () => {
                     ? 'winner-color winner-pink'
                     : ((winner === 2) ? 'winner-color winner-yellow' : 'winner-color') }
       ></div>
+
+      {
+        pause
+        &&
+        (
+          <Modal setPause={setPause}>
+            <div className='modal__content'>
+              <p>PAUSE</p>
+              <button 
+                className='modal__button white-button'
+                onClick={() => {setPause(false)}}
+              >
+                CONTINUE GAME
+              </button>
+              <button 
+                className='modal__button yellow-button'
+                onClick={() => {setPause(false); playAgain(true);}}
+              >
+                RESTART
+              </button>
+              <Link to='/' className='modal__button pink-button'>
+                QUIT GAME
+              </Link>
+            </div>
+          </Modal>
+        )
+      }
 
     </div>
   )
