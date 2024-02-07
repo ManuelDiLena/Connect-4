@@ -19,6 +19,7 @@ const usePlay = () => {
   const [player1Wins, setPlayer1Wins] = useState(0);
   const [player2Wins, setPlayer2Wins] = useState(0);
   const [wait, setWait] = useState(false);
+  const [winnerPos, setWinnerPos] = useState(null);
 
   const setNewDisk = (column) => {
     col = null
@@ -40,7 +41,6 @@ const usePlay = () => {
       grid[row][col] = player
       setGrid([...grid])
       canChange = true
-      //changePlayer()
     }
   }
 
@@ -54,20 +54,32 @@ const usePlay = () => {
     col = Number(col)
 
     // Vertically
-    row-3 >= 0 && (grid[row-1][col] === player) && (grid[row-2][col] === player) && (grid[row-3][col] === player) && setWhoWins(player)
-    row+3 <=5 && (grid[row+1][col] === player) && (grid[row+2][col] === player) && (grid[row+3][col] === player) && setWhoWins(player)
+    row-3 >= 0 && (grid[row-1][col] === player) && (grid[row-2][col] === player) && (grid[row-3][col] === player) && setWhoWins(player, [[row,col],[row-1,col],[row-2,col],[row-3,col]])
+    row+3 <= 5 && (grid[row+1][col] === player) && (grid[row+2][col] === player) && (grid[row+3][col] === player) && setWhoWins(player, [[row,col],[row+1,col],[row+2,col],[row+3,col]])
 
-    //Horizontally
-    col-3 >= 0 && (grid[row][col-1] === player) && (grid[row][col-2] === player) && (grid[row][col-3] === player) && setWhoWins(player)
-    col+3 <= 6 && (grid[row][col+1] === player) && (grid[row][col+2] === player) && (grid[row][col+3] === player) && setWhoWins(player)
+    // Horizontally
+    col-3 >= 0 && (grid[row][col-1] === player) && (grid[row][col-2] === player) && (grid[row][col-3] === player) && setWhoWins(player, [[row,col],[row,col-1],[row,col-2],[row,col-3]])
+    col+3 <= 6 && (grid[row][col+1] === player) && (grid[row][col+2] === player) && (grid[row][col+3] === player) && setWhoWins(player, [[row,col],[row,col+1],[row,col+2],[row,col+3]])
 
-    //Diagonally up
-    row-3 >= 0 && col-3 >= 0 && (grid[row-1][col-1] === player) && (grid[row-2][col-2] === player) && (grid[row-3][col-3] === player) && setWhoWins(player)
-    row-3 >= 0 && col+3 <= 6 && (grid[row-1][col+1] === player) && (grid[row-2][col+2] === player) && (grid[row-3][col+3] === player) && setWhoWins(player)
+    // Horizontally intern check
+    col+1 <= 6 && col-2 >= 0 && (grid[row][col-2] === player) && (grid[row][col-1] === player) && (grid[row][col+1] === player) && setWhoWins(player, [[row,col],[row,col-2],[row,col-1],[row,col+1]])
+    col+2 <= 6 && col-1 >= 0 && (grid[row][col-1] === player) && (grid[row][col+1] === player) && (grid[row][col+2] === player) && setWhoWins(player, [[row,col],[row,col-1],[row,col+1],[row,col+2]])
 
-    //Diagonally down
-    row+3 <= 5 && col-3 >= 0 && (grid[row+1][col-1] === player) && (grid[row+2][col-2] === player) && (grid[row+3][col-3] === player) && setWhoWins(player)
-    row+3 <= 5 && col+3 <= 6 && (grid[row+1][col+1] === player) && (grid[row+2][col+2] === player) && (grid[row+3][col+3] === player) && setWhoWins(player)
+    // Diagonally up
+    row-3 >= 0 && col-3 >= 0 && (grid[row-1][col-1] === player) && (grid[row-2][col-2] === player) && (grid[row-3][col-3] === player) && setWhoWins(player, [[row,col],[row-1,col-1],[row-2,col-2],[row-3,col-3]])
+    row-3 >= 0 && col+3 <= 6 && (grid[row-1][col+1] === player) && (grid[row-2][col+2] === player) && (grid[row-3][col+3] === player) && setWhoWins(player, [[row,col],[row-1,col+1],[row-2,col+2],[row-3,col-3]])
+
+    // Diagonally down
+    row+3 <= 5 && col-3 >= 0 && (grid[row+1][col-1] === player) && (grid[row+2][col-2] === player) && (grid[row+3][col-3] === player) && setWhoWins(player, [[row,col],[row+1,col-1],[row+2,col-2],[row+3,col-3]])
+    row+3 <= 5 && col+3 <= 6 && (grid[row+1][col+1] === player) && (grid[row+2][col+2] === player) && (grid[row+3][col+3] === player) && setWhoWins(player, [[row,col],[row+1,col+1],[row+2,col+2],[row+3,col+3]])
+
+    // Diagonally intern check
+    // Left
+    row+2 <= 5 && col-2 >= 0 && row-1 >= 0 && col+1 <= 6 && (grid[row+2][col-2] === player) && (grid[row+1][col-1] === player) && (grid[row-1][col+1] === player) && setWhoWins(player, [[row,col],[row+2,col-2],[row+1,col-1],[row-1,col+1]])
+    row+1 <= 5 && col-1 >= 0 && row-2 >= 0 && col+2 <= 6 && (grid[row+1][col-1] === player) && (grid[row-1][col+1] === player) && (grid[row-2][col+2] === player) && setWhoWins(player, [[row,col],[row+1,col-1],[row-1,col+1],[row-2,col+2]])
+    //Right
+    row+2 <= 5 && col+2 <= 6 && row-1 >= 0 && col-1 >= 0 && (grid[row-1][col-1] === player) && (grid[row+1][col+1] === player) && (grid[row+2][col+2] === player) && setWhoWins(player, [[row,col],[row-1,col-1],[row+1,col+1],[row+2,col+2]])
+    row+1 <= 5 && col+1 <= 6 && row-2 >= 0 && col-2 >= 0 && (grid[row-2][col-2] === player) && (grid[row-1][col-1] === player) && (grid[row+1][col+1] === player) && setWhoWins(player, [[row,col],[row-2,col-2],[row-1,col-1],[row+1,col+1]])
   }
 
   const addWinner = (playerNum) => {
@@ -79,7 +91,10 @@ const usePlay = () => {
     }
   }
 
-  const setWhoWins = (playerNum) => {
+  const setWhoWins = (playerNum, hasGrid) => {
+    if (hasGrid) {
+      setWinnerPos(hasGrid)
+    }
     setWinner(playerNum)
     addWinner(playerNum)
     setTimerCounter(0)
@@ -99,6 +114,7 @@ const usePlay = () => {
     canChange = false
     setWinner(null)
     setGrid(initialGrid)
+    setWinnerPos(null)
   }
 
   useEffect(() => {
@@ -123,7 +139,8 @@ const usePlay = () => {
     player1Wins,
     player2Wins,
     playAgain,
-    wait
+    wait,
+    winnerPos
   }
 }
 

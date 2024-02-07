@@ -22,7 +22,8 @@ const Game = () => {
           player2Wins,
           setWhoWins,
           playAgain,
-          wait } = usePlay();
+          wait,
+          winnerPos } = usePlay();
 
   return (
     <div className='container game_container'>
@@ -58,6 +59,7 @@ const Game = () => {
             winner={winner}
             wait={wait}
             player={player}
+            winnerPos={winnerPos}
           />
         </div>
 
@@ -89,7 +91,7 @@ const Game = () => {
 
       <div 
         className={ (winner === 1) 
-                    ? 'winner-color winner-red'
+                    ? 'winner-color winner-pink'
                     : ((winner === 2) ? 'winner-color winner-yellow' : 'winner-color') }
       ></div>
 

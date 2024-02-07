@@ -4,9 +4,10 @@ import { ReactComponent as PLAYER1DISK } from '../../assets/player-1-disk.svg';
 import { ReactComponent as PLAYER2DISK } from '../../assets/player-2-disk.svg';
 import { ReactComponent as MARKER1 } from '../../assets/marker-1.svg';
 import { ReactComponent as MARKER2 } from '../../assets/marker-2.svg';
+import { ReactComponent as WINNERCIRCLE } from '../../assets/winner-circle.svg';
 import './grid.css';
 
-const Grid = ({ grid, setNewDisk, winner, wait, player }) => {
+const Grid = ({ grid, setNewDisk, winner, wait, player, winnerPos }) => {
   const [hover, setHover] = useState(null);
   const gridPositionRow = [16,104,192,280,368,456];
   const gridPositionColumn = [18,105,193,281,369,457,545];
@@ -66,6 +67,20 @@ const Grid = ({ grid, setNewDisk, winner, wait, player }) => {
           <MARKER2 height='40' width='40' />
         </svg>
       )
+  }
+
+  const renderWinner = () => {
+    return winnerPos.map((pos, index) => {
+      return (
+        <svg
+          key={index}
+          className='winner-circle'
+          style={{ left: gridPositionColumn[pos[1]] +14, top: gridPositionRow[pos[0]] +16 }}
+        >
+          <WINNERCIRCLE height='40' width='40' />
+        </svg>
+      )
+    })
   }
 
   return (
@@ -129,6 +144,7 @@ const Grid = ({ grid, setNewDisk, winner, wait, player }) => {
       { renderDisk() }
 
       { !wait && !winner && hover != null && hoverMark() }
+      { !wait && winnerPos && renderWinner() }
     </>
   )
 }
