@@ -17,9 +17,9 @@ const Main = () => {
           PLAY vs PLAYER
           <img src={PLAYERICON} className='button__icon player-icon' alt='player icon' />
         </Link>
-        <button className='main__button button-light'>
+        <Link to={'/rules'} className='main__button button-light'>
           GAME RULES
-        </button>
+        </Link>
       </div>
     </div>
   )
