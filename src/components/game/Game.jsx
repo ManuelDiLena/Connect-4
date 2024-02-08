@@ -125,7 +125,7 @@ const Game = () => {
               >
                 RESTART
               </button>
-              <Link to='/' className='modal__button pink-button'>
+              <Link to='/' className='modal__button pink-button' onClick={() => playAgain(true)}>
                 QUIT GAME
               </Link>
             </div>
