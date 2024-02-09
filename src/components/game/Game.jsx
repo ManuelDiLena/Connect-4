@@ -3,15 +3,17 @@ import './game.css';
 import LOGO from '../../assets/main-logo.png';
 import PLAYER1 from '../../assets/player-1.png';
 import PLAYER2 from '../../assets/player-2.png';
+import PLAYERCPU from '../../assets/player-cpu.png';
 import BLACKBOARD from '../../assets/board-black.svg';
 import WHITEBOARD from '../../assets/board-white.svg';
-import { usePlay } from './usePlay';
+import { usePlay } from '../../hooks/usePlay';
+import { useCpuPlay } from '../../hooks/useCpuPlay';
 import { Grid } from '../grid/Grid';
 import { Timer } from '../timer/Timer';
 import { Winner } from '../winner/Winner';
 import { Modal } from '../modal/Modal';
 
-const Game = () => {
+const Game = ({ cpu }) => {
   const width = window.innerWidth
   const { grid,
           setNewDisk,
@@ -70,12 +72,13 @@ const Game = () => {
             player={player}
             winnerPos={winnerPos}
             width={width}
+            cpu={cpu}
           />
         </div>
 
         <article className='player__card player-2-card'>
-          <img src={PLAYER2} alt="player1" />
-          <h2>PLAYER 2</h2>
+          <img src={(cpu) ? PLAYERCPU : PLAYER2} alt="player2" />
+          <h2>{(cpu) ? 'CPU' : 'PLAYER 2'}</h2>
           <p>{player2Wins}</p>
         </article>
 
@@ -88,6 +91,7 @@ const Game = () => {
             setTimerCounter={setTimerCounter}
             setWhoWins={setWhoWins}
             pause={pause}
+            cpu={cpu}
           />
         }
         {
@@ -96,6 +100,7 @@ const Game = () => {
           <Winner 
             winner={winner}
             playAgain={playAgain}
+            cpu={cpu}
           />
         }
       </div>

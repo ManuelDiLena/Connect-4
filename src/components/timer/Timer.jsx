@@ -3,7 +3,7 @@ import TIMER1 from '../../assets/timer-1.png';
 import TIMER2 from '../../assets/timer-2.png';
 import './timer.css';
 
-const Timer = ({ player, timerCounter, setTimerCounter, setWhoWins, pause }) => {
+const Timer = ({ player, timerCounter, setTimerCounter, setWhoWins, pause, cpu }) => {
   useEffect(() => {
     const timer = !pause && timerCounter > 0 && setInterval(() => setTimerCounter(timerCounter - 1), 1000)
 
@@ -29,6 +29,7 @@ const Timer = ({ player, timerCounter, setTimerCounter, setWhoWins, pause }) => 
           {
             (player === 1)
             ? `PLAYER 1'S TURN`
+            : (cpu) ? `CPU'S TURN`
             : `PLAYER 2'S TURN`
           }
         </h3>

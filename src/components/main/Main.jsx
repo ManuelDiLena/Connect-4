@@ -4,16 +4,24 @@ import LOGO from '../../assets/main-logo.png';
 import CPUICON from '../../assets/cpu-icon.png';
 import PLAYERICON from '../../assets/player-icon.png';
 
-const Main = () => {
+const Main = ({ setCpu }) => {
   return (
     <div className='main__container buttons__container'>
       <div className='main__content'>
         <img src={LOGO} className='main__logo' alt='logo' />
-        <Link to={'/game'} className='main__button button-pink'>
+        <Link 
+          to={'/game'} 
+          className='main__button button-pink'
+          onClick={() => setCpu(true)}
+        >
           PLAY vs CPU
           <img src={CPUICON} className='button__icon cpu-icon' alt='cpu icon' />
         </Link>
-        <Link to={'/game'} className='main__button button-yellow'>
+        <Link 
+          to={'/game'} 
+          className='main__button button-yellow'
+          onClick={() => setCpu(false)}
+        >
           PLAY vs PLAYER
           <img src={PLAYERICON} className='button__icon player-icon' alt='player icon' />
         </Link>
