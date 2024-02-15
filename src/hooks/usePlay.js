@@ -55,7 +55,6 @@ const usePlay = () => {
     col = Number(col)
 
     // Vertically
-    //row-3 >= 0 && (grid[row-1][col] === player) && (grid[row-2][col] === player) && (grid[row-3][col] === player) && setWhoWins(player, [[row,col],[row-1,col],[row-2,col],[row-3,col]])
     row+3 <= 5 && (grid[row+1][col] === player) && (grid[row+2][col] === player) && (grid[row+3][col] === player) && setWhoWins(player, [[row,col],[row+1,col],[row+2,col],[row+3,col]])
 
     // Horizontally

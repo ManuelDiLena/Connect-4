@@ -1,15 +1,16 @@
-import { useState } from "react"
-
 const useCpuPlay = () => {
-  const cpuPlays = [{prior: 6, column: []},
+
+  const checkGrid = (grid) => {
+
+    const cpuPlays = [{prior: 6, column: []},
                     {prior: 5, column: []},
                     {prior: 4, column: []},
                     {prior: 3, column: []},
                     {prior: 2, column: []},
                     {prior: 1, column: []},
-                    {prior: 0, column: []}];
+                    {prior: 0, column: []},
+                    {prior: -1, column: []}];
 
-  const checkGrid = (grid) => {
     for (let col = 0; col < 7; col ++) {
       for (let row = 5; row >= 0; row --) {
         if (grid[row][col] === 0) {
@@ -20,6 +21,9 @@ const useCpuPlay = () => {
           else {
             if (checkWinPrior(grid, 1, col, row)) {
               cpuPlays[1].column.push(col)
+            }
+            else if (row-1 >= 0 && checkWinPrior(grid, 1, col, row-1)) {
+              cpuPlays[7].column.push(col) // This line is to avoid giving a chance
             }
             else if (check3Prior(grid, 2, col, row)) {
               cpuPlays[2].column.push(col)
@@ -296,7 +300,7 @@ const useCpuPlay = () => {
     console.log('here', cpuPlays)
 
     if (cpuPlays[0].column.length === 1) {
-      return cpuPlays[0].column[0]
+      col = cpuPlays[0].column[0]
     }
     else if (cpuPlays[1].column.length >= 1) {
       col = getRandom(cpuPlays[1].column)
@@ -315,6 +319,9 @@ const useCpuPlay = () => {
     }
     else if (cpuPlays[6].column.length >= 1) {
       col = getRandom(cpuPlays[6].column)
+    }
+    else if (cpuPlays[7].column.length >= 1) {
+      col = getRandom(cpuPlays[7].column)
     }
 
     return col
