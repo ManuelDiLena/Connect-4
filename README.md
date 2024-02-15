@@ -1,6 +1,6 @@
 # Connect-4
 
-### Traditional 4 online game created with React, JavaScript and CSS.
+### Traditional 4-in-a-row game created with React, JavaScript and CSS.
 ### You can play against the CPU or against another player taking turns.
 
 ### [You can try it here!](https://manueldilena.github.io/connect-4/)
