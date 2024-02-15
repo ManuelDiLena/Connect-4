@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/connect-4/static/css/main.e42774a6.css",
+    "main.js": "/connect-4/static/js/main.8381597e.js",
+    "static/media/board-black.svg": "/connect-4/static/media/board-black.b99860fbd97ad0aa6c1fd0ff6152baa8.svg",
+    "static/media/board-white.svg": "/connect-4/static/media/board-white.bc2b55762e7bc4c3a93bd185b93a86bd.svg",
+    "index.html": "/connect-4/index.html",
+    "static/media/marker-1.svg": "/connect-4/static/media/marker-1.faa9e28e9c3ef80e43f6327455c583d7.svg",
+    "static/media/marker-2.svg": "/connect-4/static/media/marker-2.4f36358a1622b4b94ce0aca8d35b79bf.svg",
+    "static/media/player-1-disk.svg": "/connect-4/static/media/player-1-disk.4cbe8e3f81329f7964cebcdce6c67e34.svg",
+    "static/media/player-2-disk.svg": "/connect-4/static/media/player-2-disk.ffc2a6fe19bb1959b6504b135122e30f.svg",
+    "static/media/winner-circle.svg": "/connect-4/static/media/winner-circle.fa50baf8a44d55672f1cf91dd13d7d64.svg",
+    "static/media/ok.svg": "/connect-4/static/media/ok.cf0fe5e2a3e63921e6b99764cc82a796.svg",
+    "main.e42774a6.css.map": "/connect-4/static/css/main.e42774a6.css.map",
+    "main.8381597e.js.map": "/connect-4/static/js/main.8381597e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e42774a6.css",
+    "static/js/main.8381597e.js"
+  ]
+}
